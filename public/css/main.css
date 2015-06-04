@@ -9,19 +9,17 @@ input {
 body {
     background-color: #282828;
 }
+
 .chat {
-    position: relative;
-    float: left;
+    /*position: relative;
+    float: left;*/
     max-width: 550px;
 /*    max-height: 300px;*/
-/*    border: 1px solid #bbb;*/
-    padding: 10px;
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.info {
-    position: relative;
-    float: right;
-}
 /****************************************/
 
 /* Chat app styles */
@@ -56,7 +54,8 @@ body {
 
 /* Message input text box styles */
 .chat textarea {
-/*    width: 120%;*/
+    max-width: 100%;
+    min-width: 100%;
     padding: 10px;
     margin: 0;
     border-top: 0;
@@ -144,6 +143,7 @@ body {
     float: right;
     padding-left: 10px;
     padding-right: 10px;
+
 /*    left: 21px;*/
 }
 

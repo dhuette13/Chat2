@@ -4,7 +4,7 @@
     <head>
         <title id="title"> Chat </title>
         <link rel="stylesheet" href="css/main.css">
-        <link rel="shortcut icon" href="icons/icon3.png">
+        <link rel="shortcut icon" href="public/images/favicon-16x16.png" type="image/x-icon" />
         <!--
         <h1 class="header" align="center"> <b> The Chatty Penguin </b> </h1>
         -->
@@ -29,15 +29,15 @@
 
             <!--Status indicator-->
             <span class="chat-status"> Status: <span>Idle</span> </span>
-            
+
             <div class="form-bar">
                 <!-- Send form -->
                 <form action="/upload" enctype="multipart/form-data" method="post" target="hidden-form">
                     <input multiple="multiple" id="file-button" name="upload" type="file" class="browse-button"/>
                     <input type="submit" class="send-button" value="Send" onclick="sendPressed()">
                 </form>
-                
-                <iframe style="display:none" name="hidden-form"></iframe> 
+
+                <iframe style="display:none" name="hidden-form"></iframe>
             </div>
         </div>
 

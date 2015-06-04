@@ -6,8 +6,10 @@ var server = require('http').createServer(app);
 var formidable = require('formidable');
 var util = require('util');
 var fs   = require('fs-extra');
+var path = require('path');
 var qt   = require('quickthumb');
 var mongo = require('mongodb').MongoClient;
+// var favicon = require('serve-favicon');
 //server.listen(8080);
 //app.http().io();
 
@@ -22,6 +24,7 @@ server.listen(port, function() {
     console.log('Server listening at port %d', port);
 });
 
+app.use(express.favicon(__dirname + 'public/images/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
 /* Use quickthumb */
 app.use(qt.static(__dirname + "/"));
@@ -56,16 +59,16 @@ app.post('/upload', function(req, res){
 
 ///* Show the upload form */
 //app.get('/', function(req, res) {
-//    
+//
 //    /* var form = '<form action="/upload" enctype="multipart/form-data" method="post">Add a title: \
 //                <input name="title" type="text" /><br><br>\
 //                <input multiple="multiple" name="upload" type="file" /><br><br>\
 //                <input type="submit" value="Upload" /></form>'; */
 //
-//    
+//
 //    res.writeHead(200, {'Content-Type': 'text/html' });
 //    fs.createReadStream('./public/index.html').pipe(res);
-//    
+//
 //});
 
 mongo.connect('mongodb://localhost/chat', function(err, db) {
