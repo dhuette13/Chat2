@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta http-equiv="pragma" content="no-cache" charset="utf-8">
+<html>
+    <head>
+        <title id="title"> Chat </title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="shortcut icon" href="icons/icon3.png">
+        <!--
+        <h1 class="header" align="center"> <b> The Chatty Penguin </b> </h1>
+        -->
+    </head>
+
+    <body>
+<!--
+        <canvas id="canvas" class="canvas" width="400" height="100">
+            Your browser does not support canvas!
+        </canvas>
+-->
+
+        <div class="chat">
+            <!--Input box for name-->
+            <input type="text" class="chat-name" placeholder="Enter your name">
+
+            <!-- Messages are dipslayed here -->
+            <div class="chat-messages"></div>
+
+            <!--Messages are typed here-->
+            <textarea class="chat-textarea" placeholder="Type your message"></textarea>
+
+            <!--Status indicator-->
+            <span class="chat-status"> Status: <span>Idle</span> </span>
+            
+            <div class="form-bar">
+                <!-- Send form -->
+                <form action="/upload" enctype="multipart/form-data" method="post" target="hidden-form">
+                    <input multiple="multiple" id="file-button" name="upload" type="file" class="browse-button"/>
+                    <input type="submit" class="send-button" value="Send" onclick="sendPressed()">
+                </form>
+                
+                <iframe style="display:none" name="hidden-form"></iframe> 
+            </div>
+        </div>
+
+        <script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+        <script src="client.js"></script>
+    </body>
+</html>

@@ -1,0 +1,5 @@
+db/
+uploads/
+.cache/
+node_modules/
+

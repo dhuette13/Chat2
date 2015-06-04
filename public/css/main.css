@@ -1,0 +1,153 @@
+/* General Styles */
+
+body,
+textarea,
+input {
+    font: 13px "Trebuchet MS", sans-serif;
+}
+
+body {
+    background-color: #282828;
+}
+.chat {
+    position: relative;
+    float: left;
+    max-width: 550px;
+/*    max-height: 300px;*/
+/*    border: 1px solid #bbb;*/
+    padding: 10px;
+}
+
+.info {
+    position: relative;
+    float: right;
+}
+/****************************************/
+
+/* Chat app styles */
+.chat-messages,
+.chat textarea,
+.chat-name {
+    border: 1px solid #bbb;
+    outline: none;
+    width: 100%;
+}
+
+/****************************************/
+
+/* Name text box styles */
+.chat-name {
+/*    width: 100%;*/
+    padding: 10px;
+    border-bottom: 0;
+    margin: 0;
+    background-color: #282828;
+    color: #FFFFFF;
+}
+
+/* Message area styles */
+.chat-messages {
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    overflow: auto;
+    padding: 10px;
+}
+
+/* Message input text box styles */
+.chat textarea {
+/*    width: 120%;*/
+    padding: 10px;
+    margin: 0;
+    border-top: 0;
+    background-color: #282828;
+    color: #FFFFFF;
+}
+
+/* Message and timestamp styles */
+
+.chat-message-user-dark {
+    font: 14px "Trebuchet MS", sans-serif;
+    color: #FF0000;
+    font-weight: bold;
+    background-color: #282828;
+}
+
+.chat-message-user-light {
+    font: 14px "Trebuchet MS", sans-serif;
+    font-weight: bold;
+    color: #FF0000;
+    background-color: #3b3b3b;
+}
+
+.chat-message-text-dark {
+    font: 12px "Trebuchet MS", sans-serif;
+    margin-bottom: 0px;
+    color: #fff;
+}
+.chat-message-time-dark {
+    font: 11px "Trebuchet MS", sans-serif;
+    color: #bbb;
+    margin-bottom: 5px;
+    background-color: #282828;
+}
+
+.chat-message-text-light {
+    font: 12px "Trebuchet MS", sans-serif;
+    margin-bottom: 0px;
+    color: #fff;
+}
+.chat-message-time-light {
+    font: 11px "Trebuchet MS", sans-serif;
+    margin-bottom: 5px;
+    color: #bbb;
+    background-color: #3b3b3b;
+}
+
+.chat-message-light {
+    background-color: #3b3b3b;
+    word-wrap:  break-word;
+}
+
+.chat-message-dark {
+    background-color: #282828;
+    word-wrap:  break-word;
+}
+
+.chat-message-image {
+    width: 50%;
+    height: 50%;
+    margin-left: 15%;
+}
+
+/****************************************/
+
+.form-bar {
+    position: relative;
+    float: left;
+    width: 104%;
+/*    padding-right: 10px;*/
+/*    padding-top: 15px;*/
+    outline: none;
+/*    width: 100%;*/
+}
+
+/* Chat status styles */
+.chat-status {
+    position: relative;
+    color: #bbb;
+    padding-top: 15px;
+}
+
+.send-button {
+    position: relative;
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+/*    left: 21px;*/
+}
+
+.browse-button {
+    color: white;
+    float: left;
+}
