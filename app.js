@@ -96,6 +96,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
 
             console.log(data);
             var name = data.name,
+                nameColor = data.nameColor,     //DP+
                 message = data.message,
                 messageTime = data.time,
                 messageNumber = data.number,
@@ -109,7 +110,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
                 sendStatus('Either a message or a message is required');
             }
             else {
-                msgCollection.insert({name: name, message: message, time: messageTime, number: messageNumber, image: messageImage}, function() {
+                msgCollection.insert({name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor}, function() {
                     // Emit latest message to ALL clients
                     client.emit('output', [data]);
 
