@@ -19,12 +19,14 @@ var mongo = require('mongodb').MongoClient;
 var client = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
+var uploadReady = false;
+
 //app.listen(port);
 server.listen(port, function() {
     console.log('Server listening at port %d', port);
 });
 
-app.use(express.favicon(__dirname + 'public/images/favicon.ico'));
+// app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
 /* Use quickthumb */
 app.use(qt.static(__dirname + "/"));
@@ -35,7 +37,7 @@ app.post('/upload', function(req, res){
 //        res.writeHead(200, {'content-type': 'text/plain'});
 //        res.write('received upload:\n\n');
 //        res.end(util.inspect({fields: fields, files: files}));
-        res.redirect('/');
+        // res.redirect('/');
     });
 
     form.on('end', function(fields, files) {
@@ -52,6 +54,7 @@ app.post('/upload', function(req, res){
             }
             else {
                 console.log("Successfully stored image");
+                uploadReady = true;
             }
         });
     });
@@ -111,12 +114,17 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             else {
                 msgCollection.insert({name: name, message: message, time: messageTime, number: messageNumber, image: messageImage}, function() {
                     // Emit latest message to ALL clients
-                    client.emit('output', [data]);
+                    // while(1){
+                    //     if(uploadReady){
+                            client.emit('output', [data]);
 
-                    sendStatus({
-                        message: "Message sent",
-                        clear: true
-                    });
+                            sendStatus({
+                                message: "Message sent",
+                                clear: true
+                            });
+                            uploadReady = false;
+                    //     }
+                    // }
                 });
             }
         });

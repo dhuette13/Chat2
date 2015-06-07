@@ -16,7 +16,7 @@ var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "O
 // Get required nodes
 var getNode = function (s) {
     return document.querySelector(s);
-    
+
 };
 
 var status = getNode('.chat-status span');
@@ -82,8 +82,8 @@ textarea.addEventListener("focus", function (e) {
 // Send button callback
 var sendPressed = function (){
     console.log('Send button pressed');
-    
-    
+
+
     var fileName = fileInput.value;
     console.log(fileName);
 
@@ -136,13 +136,13 @@ if(socket !== undefined) {
                 var imgLink = document.createElement('a');
                 var img = document.createElement('img');
                 var message = document.createElement('div');
-                
+
                 /* Div for User, date and time, and arrow */
                 var text = document.createElement('span');
                 var user = document.createElement('span');
                 var time = document.createElement('div');
                 var linebreak = document.createElement('br');
-                
+
                 var timeStyle = 'chat-message-time-dark';
                 var textStyle = 'chat-message-text-dark';
                 var userStyle = 'chat-message-user-dark';
@@ -161,14 +161,14 @@ if(socket !== undefined) {
                 if(data[x].image != ''){
                     var src = 'http://localhost:3000/uploads/' + data[x].image;
                     console.log(src);
-                    
+
                     imgLink.setAttribute('href', src);
                     img.setAttribute('src', src);
                     img.setAttribute('alt', 'na');
                     img.setAttribute('title', data[x].image);
                     img.setAttribute('class', imageStyle);
 //                    img.setAttribute('padding-left', '10px');
-                    
+
                     imgLink.appendChild(img);
 //                    img.setAttribute('width', '10');
 //                    img.setAttribute('height', '10');
@@ -203,7 +203,6 @@ if(socket !== undefined) {
                 // messages.insertBefore(message, messages.previousChild);
                 messageNumber = messageNumber + 1;
             }
-
         }
     });
 
