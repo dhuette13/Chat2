@@ -20,9 +20,10 @@ var getNode = function (s) {
 };
 
 var status = getNode('.chat-status span');
-var messages = getNode('.chat-messages');
-var textarea = getNode('.chat textarea');
-var chatName = getNode('.chat-name');
+var messages      = getNode('.chat-messages');
+var textarea      = getNode('.chat textarea');
+var chatName      = getNode('.chat-name');
+var chatNameColor = getNode('.chat-name-color');    //DP+
 var title = document.getElementById('title');
 var fileInput = document.getElementById("file-button");
 
@@ -89,6 +90,7 @@ var sendPressed = function (){
 
     var self = textarea,
         name = chatName.value,
+        nameColor = chatNameColor.value,    //DP+
         date = new Date(),
         hours = date.getHours(),
         minutes = date.getMinutes(),
@@ -110,6 +112,7 @@ var sendPressed = function (){
     console.log('Send!');
     socket.emit('input', {
         name: name,
+        nameColor: nameColor,   //DP+
         message: self.value,
         time: messageTime,
         number: messageNumber,
@@ -178,7 +181,9 @@ if(socket !== undefined) {
                 }
 
                 //Compose message
+                
                 user.setAttribute('class', userStyle);
+                user.setAttribute('style', 'color: ' + chatNameColor.value +';');    //DP+ Changes color of your message based on what was entered into the chatNameColor box from the web          
                 user.textContent = data[x].name;
                 text.setAttribute('class', textStyle);
                 text.textContent = ' >> ' + data[x].message;

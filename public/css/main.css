@@ -15,7 +15,7 @@ body {
     float: left;*/
     max-width: 550px;
 /*    max-height: 300px;*/
-    padding: 30px;
+    padding: 0px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -25,7 +25,8 @@ body {
 /* Chat app styles */
 .chat-messages,
 .chat textarea,
-.chat-name {
+.chat-name, 
+.chat-name-color {
     border: 1px solid #bbb;
     outline: none;
     width: 100%;
@@ -35,7 +36,17 @@ body {
 
 /* Name text box styles */
 .chat-name {
-/*    width: 100%;*/
+/*    width: 50%; */
+    padding: 10px;
+    border-bottom: 0;
+    margin: 0;
+    background-color: #282828;
+    color: #FFFFFF;
+}
+
+/* Name color text box styles */
+.chat-name-color {
+/*    width: 50%;*/
     padding: 10px;
     border-bottom: 0;
     margin: 0;
@@ -67,15 +78,16 @@ body {
 
 .chat-message-user-dark {
     font: 14px "Trebuchet MS", sans-serif;
-    color: #FF0000;
+/*    color: #FF0000;*/
     font-weight: bold;
+    color: #FFFFFF;
     background-color: #282828;
 }
 
 .chat-message-user-light {
     font: 14px "Trebuchet MS", sans-serif;
     font-weight: bold;
-    color: #FF0000;
+    color: #FFFFFF;
     background-color: #3b3b3b;
 }
 
@@ -139,6 +151,13 @@ body {
 }
 
 .send-button {
+    position: relative;
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+    
+.color-button {
     position: relative;
     float: right;
     padding-left: 10px;
