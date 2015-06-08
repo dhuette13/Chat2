@@ -96,7 +96,7 @@ var sendPressed = function (){
         minutes = date.getMinutes(),
         noon = "AM",
         month = date.getMonth(),
-        day = date.getDay();
+        day = date.getUTCDate();
 
     // Build time string
     if(minutes < 10){
@@ -183,7 +183,7 @@ if(socket !== undefined) {
                 //Compose message
 
                 user.setAttribute('class', userStyle);
-                user.setAttribute('style', 'color: ' + data[x].nameColor +';');    //DP+ Changes color of your message based on what was entered into the chatNameColor box from the web          
+                user.setAttribute('style', 'color: ' + data[x].nameColor +';');    //DP+ Changes color of your message based on what was entered into the chatNameColor box from the web
                 user.textContent = data[x].name;
                 text.setAttribute('class', textStyle);
                 text.textContent = ' >> ' + data[x].message;
