@@ -1,18 +1,5 @@
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-//// Draw title
-//var x = document.getElementById('canvas');
-//var canvas = x.getContext('2d');
-//canvas.shadowOffsetX = 8;
-//canvas.shadowOffsetY = 8;
-//canvas.shadowBlur = 2;
-//canvas.fillStyle = "rgba(255, 255, 255, 1)";
-//canvas.shadowColor = 'rgba(0, 0, 0, 0.8)';
-//
-//canvas.font = "bold 36px Tahoma";
-//canvas.textAlign = "end";
-//canvas.fillText("The Chatty Penguin", 400, 50);
-
 // Get required nodes
 var getNode = function (s) {
     return document.querySelector(s);
@@ -47,8 +34,7 @@ setStatus('Testing');
 // Try connection
 try {
     var socket = io.connect('http://localhost:3000');
-//    var socket = io();
-    // var socket = io.connect();
+
 } catch (e) {
     // Set status to warn user
     setStatus('Could not connect');
@@ -61,25 +47,6 @@ textarea.addEventListener("focus", function (e) {
     title.textContent = "Chat";
 });
 
-//
-//textarea.addEventListener("dragstart", function(e) {
-//    e.dataTransfer.setData('Text', "This is text to drag")
-//}, false);
-//
-//textarea.addEventListener("dragenter", function(e) {
-//    e.preventDefault();
-//}, false);
-//textarea.addEventListener("dragover", function(e) {
-//    e.preventDefault();
-//}, false);
-//textarea.addEventListener("drop", function(e) {
-//    e.preventDefault();
-//    // var file = e.dataTransfer.mozGetDataAt("application/x-moz-file", 0);
-//    // if(file instanceof Components.interfaces.nsIFile)
-//    //     e.currentTarget.appendItem(file.leafName);
-//    textarea.textContent = e.dataTransfer.getData('Text');
-//}, false);
-
 // Send button callback
 var sendPressed = function (){
     console.log('Send button pressed');
@@ -88,15 +55,15 @@ var sendPressed = function (){
     var fileName = fileInput.value;
     console.log(fileName);
 
-    var self = textarea,
-        name = chatName.value,
-        nameColor = chatNameColor.value,    //DP+
-        date = new Date(),
-        hours = date.getHours(),
-        minutes = date.getMinutes(),
-        noon = "AM",
-        month = date.getMonth(),
-        day = date.getUTCDate();
+    var self = textarea;
+    var name = chatName.value;
+    var nameColor = chatNameColor.value;    //DP+
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var noon = "AM";
+    var month = date.getMonth();
+    var day = date.getUTCDate();
 
     // Build time string
     if(minutes < 10){
@@ -126,7 +93,6 @@ if(socket !== undefined) {
     // Listen for output
     socket.on('output', function(data) {
         if(data.length) {
-            // var scrollbar = new Control.ScrollBar('chat-messages','scrollbar-track');
 
             // See if last message sender
             if(data[data.length - 1].name != chatName.value){

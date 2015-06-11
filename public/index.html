@@ -12,26 +12,19 @@
     </head>
 
     <body>
-<!--
-        <canvas id="canvas" class="canvas" width="400" height="100">
-            Your browser does not support canvas!
-        </canvas>
--->
-
-
             <!--Input box for name-->
         <div class="chat">
-            
+
             <div style="float:left; width:50%;">
             <input type="text" class="chat-name" placeholder="Enter your name">
             </div>
-             
+
             <div style="float:left; width:50%;">
             <input type="text" class="chat-name-color" placeholder="#FFFFFF">
             </div>
-        
+
             <div style="clear:both;"></div>
-        
+
             <!-- Messages are dipslayed here -->
             <div class="chat-messages"></div>
 
@@ -43,12 +36,12 @@
 
             <div class="form-bar">
                 <!-- Send form -->
-                <form action="/upload" enctype="multipart/form-data" method="post" target="hidden-form">
-                    <input multiple="multiple" id="file-button" name="upload" type="file" class="browse-button"/>
-                    <input type="submit" class="send-button" value="Send" onclick="sendPressed()">
+                <form method="post" action="upload" enctype="multipart/form-data">
+                    <input multiple="multiple" id="file-button" name="image" type="file" class="browse-button"/>
+                    <input type="submit" name="submit" class="send-button" value="Send" onclick="sendPressed()">
                 </form>
 
-                <iframe style="display:none" name="hidden-form"></iframe>
+                <!-- <iframe style="display:none" name="hidden-form"></iframe> -->
             </div>
         </div>
 
