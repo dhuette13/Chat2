@@ -90,8 +90,6 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             var messageImage = data.image;
             var whitespacePattern = /^\s*$/;
 
-            messageNumber = messageNumber + 1;
-
             if(whitespacePattern.test(name)) {
                 sendStatus('Name is required.');
             }
@@ -99,6 +97,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
                 sendStatus('Either a message or a message is required');
             }
             else {
+                messageNumber = messageNumber + 1;
                 msgCollection.insert({name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor}, function() {
                   //
                 //   if(messageImage === ""){
