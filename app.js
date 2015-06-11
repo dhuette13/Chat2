@@ -38,7 +38,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
 
 
 
-        app.post('/', function(req, res){
+        app.post('/upload', function(req, res){
             var form = new formidable.IncomingForm();
             form.parse(req, function(err, fields, files) {
                 res.redirect('/');

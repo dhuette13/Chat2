@@ -5,7 +5,7 @@
         <title id="title"> Chat </title>
         <link rel="stylesheet" href="css/main.css">
         <link rel="shortcut icon" href="public/images/favicon-16x16.png" type="image/x-icon" />
-        <center><a href="index.html"><IMG SRC="public/images/wipChattyPenguin.png" href="index.html"> </a></center>
+        <center><a href="index.html"><img src="public/images/wipChattyPenguin.png" href="/"> </a></center>
         <!--
         <h1 class="header" align="center"> <b> The Chatty Penguin </b> </h1>
         -->
@@ -36,12 +36,12 @@
 
             <div class="form-bar">
                 <!-- Send form -->
-                <form method="post" enctype="multipart/form-data" target="hidden-form">
+                <form method="post" enctype="multipart/form-data" action="upload" >
                     <input multiple="multiple" id="file-button" name="image" type="file" class="browse-button"/>
                     <input type="submit" name="submit" class="send-button" value="Send" onclick="sendPressed()">
                 </form>
 
-                <iframe style="display:none" name="hidden-form"></iframe>
+                <!-- <iframe style="display:none" name="hidden-form"></iframe> -->
             </div>
         </div>
 
