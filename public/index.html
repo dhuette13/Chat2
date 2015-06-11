@@ -36,12 +36,12 @@
 
             <div class="form-bar">
                 <!-- Send form -->
-                <form method="post" action="upload" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" target="hidden-form">
                     <input multiple="multiple" id="file-button" name="image" type="file" class="browse-button"/>
                     <input type="submit" name="submit" class="send-button" value="Send" onclick="sendPressed()">
                 </form>
 
-                <!-- <iframe style="display:none" name="hidden-form"></iframe> -->
+                <iframe style="display:none" name="hidden-form"></iframe>
             </div>
         </div>
 

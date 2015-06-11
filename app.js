@@ -38,7 +38,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
 
 
 
-        app.post('/upload', function(req, res){
+        app.post('/', function(req, res){
             var form = new formidable.IncomingForm();
             form.parse(req, function(err, fields, files) {
                 res.redirect('/');
@@ -100,7 +100,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             }
             else {
                 msgCollection.insert({name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor}, function() {
-                  // 
+                  //
                 //   if(messageImage === ""){
                 //     client.emit('output', [data]);
                   //
