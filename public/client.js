@@ -33,7 +33,7 @@ setStatus('Testing');
 
 // Try connection
 try {
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect('http://localhost:8080');
 
 } catch (e) {
     // Set status to warn user
@@ -128,7 +128,7 @@ if(socket !== undefined) {
 
                 //Prepare image
                 if(data[x].image != ''){
-                    var src = 'http://localhost:3000/uploads/' + data[x].image;
+                    var src = 'http://localhost:8080/uploads/' + data[x].image;
                     console.log(src);
 
                     imgLink.setAttribute('href', src);

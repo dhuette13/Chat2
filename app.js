@@ -9,7 +9,7 @@ var qt   = require('quickthumb');
 var mongo = require('mongodb').MongoClient;
 
 var client = require('socket.io')(server);
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 mongo.connect('mongodb://localhost/chat', function(err, db) {
     if(err) throw err;
