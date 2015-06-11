@@ -24,5 +24,5 @@
 2. ~~Images~~
 3. ~~Gifs~~
 4. Make website pretty
-5. Give title an icon
+5. ~~Give title an icon~~
 6. Pick domain name
