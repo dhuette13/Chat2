@@ -16,8 +16,6 @@ var fileInput = document.getElementById("file-button");
 
 var statusDefault = status.textContent;
 
-var messageNumber = 0;
-
 var setStatus = function (s) {
     status.textContent = s;
 
@@ -82,7 +80,6 @@ var sendPressed = function (){
         nameColor: nameColor,   //DP+
         message: self.value,
         time: messageTime,
-        number: messageNumber,
         image: fileName
     });
 
@@ -172,7 +169,6 @@ if(socket !== undefined) {
                 // Append user
                 // messages.appendChild(user);
                 // messages.insertBefore(message, messages.previousChild);
-                messageNumber = messageNumber + 1;
             }
         }
     });
@@ -183,16 +179,6 @@ if(socket !== undefined) {
 
         if(data.clear === true) {
             textarea.value = '';
-        }
-    });
-
-    // Listen for keydown
-    textarea.addEventListener('keydown', function(event) {
-
-        // Test for enter key and no shift key
-        if(event.which == 13 && event.shiftKey === false){
-            sendPressed();
-            event.preventDefault();
         }
     });
 }

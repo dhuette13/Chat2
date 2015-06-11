@@ -10,6 +10,7 @@ var mongo = require('mongodb').MongoClient;
 
 var client = require('socket.io')(server);
 var port = process.env.PORT || 8080;
+var messageNumber = 0;
 
 mongo.connect('mongodb://localhost/chat', function(err, db) {
     if(err) throw err;
@@ -42,10 +43,6 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             form.parse(req, function(err, fields, files) {
                 res.redirect('/');
             });
-
-            // form.on('progress', function(bytesReceived, bytesExpected) {
-            //     console.log('Received ' + bytesReceived + ' bytes out of ' + bytesExpected + '.');
-            // });
 
             form.on('end', function(fields, files) {
                 /* Temporary location of our uploaded file */
@@ -86,14 +83,15 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             lastMessage = data;
 
             console.log(data);
-            var name = data.name,
-                nameColor = data.nameColor,     //DP+
-                message = data.message,
-                messageTime = data.time,
-                messageNumber = data.number,
-                messageImage = data.image
-                whitespacePattern = /^\s*$/;
+            var name = data.name;
+            var nameColor = data.nameColor;     //DP+
+            var message = data.message;
+            var messageTime = data.time;
+            var messageImage = data.image;
+            var whitespacePattern = /^\s*$/;
 
+            messageNumber = messageNumber + 1;
+            
             if(whitespacePattern.test(name)) {
                 sendStatus('Name is required.');
             }
