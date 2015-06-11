@@ -33,7 +33,7 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
         var msgCollection = db.collection('messages');
 
         function sendStatus(s) {
-            client.emit('status', s);
+            socket.emit('status', s);
         };
 
 
@@ -75,12 +75,12 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
         // Emit all messages on initial log in
         msgCollection.find().limit(100).sort({_id: 1}).toArray(function(err, res) {
             if(err) throw err;
-            client.emit('output', res);
+            socket.emit('output', res);
         });
 
         // Wait for input
         socket.on('input', function(data) {
-            lastMessage = data;
+
 
             console.log(data);
             var name = data.name;
@@ -98,16 +98,17 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             }
             else {
                 messageNumber = messageNumber + 1;
-                msgCollection.insert({name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor}, function() {
-                  //
-                //   if(messageImage === ""){
-                //     client.emit('output', [data]);
-                  //
-                //     sendStatus({
-                //       message: "Message sent",
-                //       clear: true
-                //     });
-                //   }
+                lastMessage = {name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor};
+                msgCollection.insert(lastMessage, function() {
+
+                  if(messageImage === ""){
+                    client.emit('output', [lastMessage]);
+
+                    sendStatus({
+                      message: "Message sent",
+                      clear: true
+                    });
+                  }
                 });
             }
         });
