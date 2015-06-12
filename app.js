@@ -59,14 +59,12 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
                     else {
                         console.log("Successfully stored image");
 
-                        // msgCollection.find({image: filename}, function (err, entry) {
-                          client.emit('output', [lastMessage]);
-
-                          sendStatus({
+                        sendStatus({
                             message: "Message sent",
                             clear: true
-                          });
-                        // });
+                        });
+
+                        client.emit('output', [lastMessage]);
                     }
                 });
             });
@@ -91,23 +89,29 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             var whitespacePattern = /^\s*$/;
 
             if(whitespacePattern.test(name)) {
-                sendStatus('Name is required.');
+                sendStatus({
+                    message: "Name is required",
+                    clear: false
+                });
             }
             else if(whitespacePattern.test(message) && whitespacePattern.test(messageImage)){
-                sendStatus('Either a message or a message is required');
+                sendStatus({
+                    message: "Either a message or an image is required",
+                    clear: false
+                });
             }
             else {
                 messageNumber = messageNumber + 1;
                 lastMessage = {name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor};
                 msgCollection.insert(lastMessage, function() {
 
+                sendStatus({
+                  message: "Message sent",
+                  clear: true
+                });
                   if(messageImage === ""){
                     client.emit('output', [lastMessage]);
 
-                    sendStatus({
-                      message: "Message sent",
-                      clear: true
-                    });
                   }
                 });
             }

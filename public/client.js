@@ -6,7 +6,6 @@ var getNode = function (s) {
 
 };
 
-var status = getNode('.chat-status span');
 var messages      = getNode('.chat-messages');
 var textarea      = getNode('.chat textarea');
 var chatName      = getNode('.chat-name');
@@ -14,9 +13,10 @@ var chatNameColor = getNode('.chat-name-color');    //DP+
 var title = document.getElementById('title');
 var fileInput = document.getElementById("file-button");
 
-var statusDefault = status.textContent;
+var statusDefault = "Idle";
 
 var setStatus = function (s) {
+    var status = document.getElementById('status');
     status.textContent = s;
 
     if (s !== statusDefault) {
@@ -179,6 +179,7 @@ if(socket !== undefined) {
 
         if(data.clear === true) {
             textarea.value = '';
+            fileInput.value = '';
         }
     });
 }
