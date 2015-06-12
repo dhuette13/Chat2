@@ -73,9 +73,9 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
         });
 
         // Emit all messages on initial log in
-        msgCollection.find().limit(100).sort({_id: 1}).toArray(function(err, res) {
+        msgCollection.find().sort({_id: 1}).toArray(function(err, res) {
             if(err) throw err;
-            socket.emit('output', res);
+            socket.emit('output', res.slice(res.length - 100, res.length));
         });
 
         // Wait for input
