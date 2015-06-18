@@ -6,24 +6,22 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="shortcut icon" href="public/images/favicon-16x16.png" type="image/x-icon" />
         <center><a href="index.html"><img src="public/images/wipChattyPenguin.png" href="/"> </a></center>
-        <!--
-        <h1 class="header" align="center"> <b> The Chatty Penguin </b> </h1>
-        -->
     </head>
 
     <body>
-            <!--Input box for name-->
         <div class="chat">
 
+            <!--Input box for name-->
             <div style="float:left; width:50%;">
-            <input type="text" class="chat-name" placeholder="Enter your name">
+                <input type="text" class="chat-name" placeholder="Enter your name">
             </div>
 
+            <!--Input box for name color-->
             <div style="float:left; width:50%;">
-            <input type="text" class="chat-name-color" placeholder="#FFFFFF">
+                <input type="text" class="chat-name-color" placeholder="#FFFFFF">
             </div>
 
-            <div style="clear:both;"></div>
+            <div style="clear: both;"></div>
 
             <!-- Messages are dipslayed here -->
             <div class="chat-messages"></div>
@@ -36,7 +34,7 @@
 
             <div class="form-bar">
                 <!-- Send form -->
-                <form method="post" enctype="multipart/form-data" action="upload" target="hidden-form">
+                <form method="post" enctype="multipart/form-data" action="/upload" target="hidden-form">
                     <input multiple="multiple" id="file-button" name="image" type="file" class="browse-button"/>
                     <input type="submit" name="submit" class="send-button" value="Send" onclick="sendPressed()">
                 </form>
@@ -46,6 +44,9 @@
         </div>
 
         <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>-->
         <script src="client.js"></script>
     </body>
 </html>

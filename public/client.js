@@ -40,21 +40,40 @@ try {
     throw e;
 }
 
+$("form").submit(function(e) {
+    e.preventDefault();
+
+    var fd = new FormData(document.querySelector("form"));
+    $.ajax({
+          url: "upload",
+          type: "POST",
+          data: fd,
+          processData: false,  // tell jQuery not to process the data
+          contentType: false   // tell jQuery not to set contentType
+    })
+    .done(function (){
+        setStatus("Message sent");
+        textarea.value = '';
+        fileInput.value = '';
+    });
+
+});
+
 /* Mark title bar as read once text area has focus */
 textarea.addEventListener("focus", function (e) {
-    title.textContent = "Chat";
+title.textContent = "Chat";
 });
 
 // Send button callback
 var sendPressed = function (){
-    console.log('Send button pressed');
+console.log('Send button pressed');
 
 
-    var fileName = fileInput.value;
-    console.log(fileName);
+var fileName = fileInput.value;
+console.log(fileName);
 
-    var self = textarea;
-    var name = chatName.value;
+var self = textarea;
+var name = chatName.value;
     var nameColor = chatNameColor.value;    //DP+
     var date = new Date();
     var hours = date.getHours();

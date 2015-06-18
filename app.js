@@ -11,6 +11,7 @@ var mongo = require('mongodb').MongoClient;
 var client = require('socket.io')(server);
 var port = process.env.PORT || 8080;
 var messageNumber = 0;
+var whitespacePattern = /^\s*$/;
 
 mongo.connect('mongodb://localhost/chat', function(err, db) {
     if(err) throw err;
@@ -27,24 +28,28 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
     app.use(qt.static(__dirname + "/"));
 
     client.on('connection', function(socket) {
+        function sendStatus(s) {
+            socket.emit('status', s);
+        };
+
         console.log('Someone has connected.');
 
         // Switch to messages mongo collection
         var msgCollection = db.collection('messages');
 
-        function sendStatus(s) {
-            socket.emit('status', s);
-        };
-
-
-
         app.post('/upload', function(req, res){
+            if(whitespacePattern.test(lastMessage.image)) return;
             var form = new formidable.IncomingForm();
-            form.parse(req, function(err, fields, files) {
-                res.redirect('/');
+            
+            form.on('error', function(err) {
+                sendStatus({
+                    message: "Error uploading your file",
+                    clear: true
+                });
             });
 
             form.on('end', function(fields, files) {
+                
                 /* Temporary location of our uploaded file */
                 var temp_path = this.openedFiles[0].path;
                 /* The file name of the uplaoded file */
@@ -65,9 +70,12 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
                         });
 
                         client.emit('output', [lastMessage]);
+                        res.redirect('/');
                     }
                 });
             });
+
+            form.parse(req);
         });
 
         // Emit all messages on initial log in
@@ -86,7 +94,6 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
             var message = data.message;
             var messageTime = data.time;
             var messageImage = data.image;
-            var whitespacePattern = /^\s*$/;
 
             if(whitespacePattern.test(name)) {
                 sendStatus({
@@ -105,14 +112,13 @@ mongo.connect('mongodb://localhost/chat', function(err, db) {
                 lastMessage = {name: name, message: message, time: messageTime, number: messageNumber, image: messageImage, nameColor: nameColor};
                 msgCollection.insert(lastMessage, function() {
 
-                sendStatus({
-                  message: "Message sent",
-                  clear: true
-                });
-                  if(messageImage === ""){
-                    client.emit('output', [lastMessage]);
-
-                  }
+                    if(whitespacePattern.test(messageImage)){
+                        client.emit('output', [lastMessage]);
+                        sendStatus({
+                            message: "Message sent",
+                            clear: true
+                        });
+                    }
                 });
             }
         });
