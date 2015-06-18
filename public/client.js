@@ -1,5 +1,11 @@
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
+// var urlString  = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+var urlString  = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g;
+//var urlString = /(([a-z]+:\/\/)?(([a-z0-9\-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal))(:[0-9]{1,5})?(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@\/?]*)?)(\s+|$)/g;
+
+var urlPattern = new RegExp(urlString);
+
 // Get required nodes
 var getNode = function (s) {
     return document.querySelector(s);
@@ -70,7 +76,6 @@ console.log('Send button pressed');
 
 
 var fileName = fileInput.value;
-console.log(fileName);
 
 var self = textarea;
 var name = chatName.value;
@@ -93,7 +98,6 @@ var name = chatName.value;
 
     var messageTime = hours + ":" + minutes + noon + "\t" + months[month] + " " + day;
 
-    console.log('Send!');
     socket.emit('input', {
         name: name,
         nameColor: nameColor,   //DP+
@@ -126,7 +130,7 @@ if(socket !== undefined) {
                 var text = document.createElement('span');
                 var user = document.createElement('span');
                 var time = document.createElement('div');
-                var linebreak = document.createElement('br');
+                var lineBreak = document.createElement('br');
 
                 var timeStyle = 'chat-message-time-dark';
                 var textStyle = 'chat-message-text-dark';
@@ -134,7 +138,7 @@ if(socket !== undefined) {
                 var messageStyle = 'chat-message-dark';
                 var imageStyle = 'chat-message-image';
 
-                // Alternate between light and dark background
+                /* Alternate between light and dark background */
                 if(data[x].number % 2 == 0){
                     timeStyle = 'chat-message-time-light';
                     textStyle = 'chat-message-text-light';
@@ -142,7 +146,7 @@ if(socket !== undefined) {
                     messageStyle = 'chat-message-light';
                 }
 
-                //Prepare image
+                /* Prepare image */
                 if(data[x].image != ''){
                     var src = 'http://localhost:8080/uploads/' + data[x].image;
                     console.log(src);
@@ -152,36 +156,88 @@ if(socket !== undefined) {
                     img.setAttribute('alt', 'na');
                     img.setAttribute('title', data[x].image);
                     img.setAttribute('class', imageStyle);
-//                    img.setAttribute('padding-left', '10px');
 
                     imgLink.appendChild(img);
-//                    img.setAttribute('width', '10');
-//                    img.setAttribute('height', '10');
                 }
                 else {
                     img = null;
                 }
 
-                //Compose message
-
-                user.setAttribute('class', userStyle);
-                user.setAttribute('style', 'color: ' + data[x].nameColor +';');    //DP+ Changes color of your message based on what was entered into the chatNameColor box from the web
-                user.textContent = data[x].name;
+                /* Check for urls and prepare text div */
                 text.setAttribute('class', textStyle);
-                text.textContent = ' >> ' + data[x].message;
+                text.textContent = ' >> ';
+                //var urlArray = data[x].message.match(urlPattern);
+                var textArray = data[x].message.split(urlPattern);
+
+                var i = 0;
+                var result;
+                while((result = urlPattern.exec(data[x].message)) !== null){
+                    console.log('Found: ' + result[0]);
+                    
+                    /* Create span for text */
+                    var textSpan = document.createElement('span');
+                    textSpan.textContent = textArray[i];
+                    i = i + 2;
+
+                    /* Create span for url */
+                    var urlLink = document.createElement('a');
+                    if(/https?/.test(result[0])){
+                        urlLink.setAttribute('href', result[0]);
+                    }
+                    else {
+                        urlLink.setAttribute('href', 'http://' + result[0]);
+                    }
+                    urlLink.setAttribute('style', 'color: #2B7BB9;');
+                    urlLink.textContent = result[0];
+
+                    /* Append new span's to the text message span */
+                    text.appendChild(textSpan);
+                    text.appendChild(urlLink);
+                }
+
+                var textSpan = document.createElement('span');
+                textSpan.textContent = textArray[i];
+                text.appendChild(textSpan);
+                
+                //var i = 0;
+                //for(var t in textArray){
+                    //[> Create span for text <]
+                    //var textSpan = document.createElement('span');
+                    //textSpan.textContent = textArray[t];
+
+                    //[> Create span for url <]
+                    //var urlLink = document.createElement('a');
+                    //urlLink.setAttribute('href', urlArray[i]);
+                    //urlLink.setAttribute('style', 'color: #2B7BB9;');
+                    //urlLink.textContent = urlArray[i++];
+
+                    //[> Append new span's to the text message span <]
+                    //text.appendChild(textSpan);
+                    //text.appendChild(urlLink);
+                //}
+
+                /* Prepare user div */
+                user.setAttribute('class', userStyle);
+                user.setAttribute('style', 'color: ' + data[x].nameColor +';');
+                user.textContent = data[x].name;
+
+
+                /* Prepare time div */
                 time.setAttribute('class', timeStyle);
                 time.textContent += data[x].time;
 
+                /* Compose message */
                 message.setAttribute('class', messageStyle);
                 if(img != null) {
                     message.appendChild(imgLink);
-                    message.appendChild(linebreak);
+                    message.appendChild(lineBreak);
                 }
+
                 message.appendChild(user);
                 message.appendChild(text);
                 message.appendChild(time);
 
-                // Append message
+                /* Append message to message board */
                 messages.appendChild(message);
                 messages.insertBefore(message, messages.firstChild);
 
