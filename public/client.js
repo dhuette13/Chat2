@@ -67,18 +67,18 @@ $("form").submit(function(e) {
 
 /* Mark title bar as read once text area has focus */
 textarea.addEventListener("focus", function (e) {
-title.textContent = "Chat";
+    title.textContent = "Chat";
 });
 
-// Send button callback
+/* Send button callback */
 var sendPressed = function (){
-console.log('Send button pressed');
+    console.log('Send button pressed');
 
 
-var fileName = fileInput.value;
+    var fileName = fileInput.value;
 
-var self = textarea;
-var name = chatName.value;
+    var self = textarea;
+    var name = chatName.value;
     var nameColor = chatNameColor.value;    //DP+
     var date = new Date();
     var hours = date.getHours();
